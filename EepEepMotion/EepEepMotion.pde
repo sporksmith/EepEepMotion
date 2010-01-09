@@ -124,10 +124,10 @@ void setup() {
     /* here's where to pick which mode actually gets loaded */
     
     //mode = new AnimateMode();
-    //mode = new LabelMode();
+    mode = new LabelMode();
     //mode = new ViewAllMode();
     //mode = new RenderFromFramesMode();
-    mode = new GravityMode();
+    //mode = new GravityMode();
     mode.enterMode();
   }
   
