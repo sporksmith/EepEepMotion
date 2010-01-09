@@ -7,3 +7,14 @@ To export blender animations to a form readable by EepEepMotion, you need to use
 the included blender plugin blender/export_ascii.py. You should link this
 into blender's scripts directory.
 
+The subdirectory Travels/ includes most of the sources necessary to reconstruct
+the Travels of Code Monkey video. Notably missing are the source photographs,
+which I could not include here for sake of space and IP issues. I've asked
+the photographers about making the photos available under creative commons,
+but have not been able to get a response from all of them. 
+
+There is a skeleton directory tree under Travels/pictures. In each
+subdirectory, there is a file called 'View Online.url' with the url for
+that album. The easiest way to download these albums is probably using
+the Picasa application, though it can also be done using a combination
+of GreaseMonkey and DownThemAll.
