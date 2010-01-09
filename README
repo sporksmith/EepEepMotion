@@ -1,11 +1,9 @@
-change paths in beginning of monkey_label (particularly project_root_path)
-need to install peasy and controlP5 (should I remove these dependencies?)
-install blender plugin
+There are hard coded paths in EepEepMotion.pde. You will need to change these; 
+particularly project_root_path.
 
-labeling:
-choose a mode in monkey_label:setup
+You will need to install peasycam (http://mrfeinberg.com/peasycam/).
 
-creating animations in blender:
-
-rendering animations made in blender:
+To export blender animations to a form readable by EepEepMotion, you need to use
+the included blender plugin blender/export_ascii.py. You should link this
+into blender's scripts directory.
 
