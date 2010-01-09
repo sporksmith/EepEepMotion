@@ -1,8 +1,32 @@
-There are hard coded paths in EepEepMotion.pde. You will need to change these; 
-particularly project_root_path.
+EepEepMotion is a tool for opportunistic stop motion animation. It was
+created as part of the Travels of Code Monkey project:
+http://wp.sporksmith.net/travels-of-code-monkey/
 
-You will need to install peasycam (http://mrfeinberg.com/peasycam/).
+The idea is to take many photos of one subject, annotate that subject's
+location, scale, and orientation in each photo, and then use that information
+to create animations. This software was originally intended as a one-shot
+creation. There's a lot of ugliness as a result. Depending on the
+level of interest, and how my time permits I'll try to 
+clean this up and generalize it to make it more straightforward to 
+create animations of subjects other than Mr. Monkey. 
 
+Included:
+blender/	Blender plugin for exporting animations
+EepEepMotion/	Processing application for annotating photos,
+		matching individual photos to a chosen position,
+		and for creating animations from the exported blender
+		specification.
+Travels/	Project data specific to the Travels of Code Monkey video.
+
+Installation:
+To get started, you will need Processing (http://processing.org/). 
+Currently, you will need to install the peasycam Processing
+library (http://mrfeinberg.com/peasycam/), though this is only actually
+used for 'viewallmode'. There are currently a number of hard-coded
+paths in EepEepMotion.pde that you will want to change. Minimally,
+you'll need to change project_root_path.
+
+To create animations, you will need Blender (http://www.blender.org/).
 To export blender animations to a form readable by EepEepMotion, you need to use
 the included blender plugin blender/export_ascii.py. You should link this
 into blender's scripts directory.
@@ -18,3 +42,4 @@ subdirectory, there is a file called 'View Online.url' with the url for
 that album. The easiest way to download these albums is probably using
 the Picasa application, though it can also be done using a combination
 of GreaseMonkey and DownThemAll.
+

@@ -19,7 +19,7 @@ import java.util.Comparator;
 import processing.video.*;
 
 // hard coded path names for convenience
-String project_root_path = "/Users/jnewsome/projects/monkey_video/"; /* other paths will be relative to this one */
+String project_root_path = "/FIXME/EepEepMotion/Travels"; /* other paths will be relative to this one */
 String pic_index_path = project_root_path + "pictures/index";
 String frames_path = project_root_path + "blender/verses.txt";
 String movie_output_path = project_root_path + "output/movie.mpg";
