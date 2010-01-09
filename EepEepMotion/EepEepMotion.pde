@@ -3,7 +3,8 @@ import peasy.*;
 import peasy.org.apache.commons.math.geometry.*;
 PeasyCam cam;
 
-import controlP5.*;
+//import controlP5.*;
+
 boolean do_cp5 = false; /* enable controlP5 mode switching. currently broken. */
 
 import javax.swing.JFileChooser;
@@ -45,8 +46,8 @@ MonkeyPic mp; /* current displayed mp */
 Monkey m; /* current displayed monkey */
 
 /* vestigial from when I was using P5. should probably be removed */
-ControlP5 controlP5;
-ControlWindow controlWindow;
+//ControlP5 controlP5;
+//ControlWindow controlWindow;
 
 EepEepMotion applet; /* this applet. sometimes needs to be passed into Java APIs */
 
@@ -108,6 +109,7 @@ void setup() {
   mps.load();
   
   if (do_cp5) {
+    /*
     controlP5 = new ControlP5(this);
     controlWindow = controlP5.addControlWindow("controlP5window",100,100,100,100);
     controlWindow.setBackground(color(40));
@@ -120,6 +122,7 @@ void setup() {
     r.add("animate", 1);
     //modes.add(2, new ViewAllMode());
     //r.add("view all", 2);
+    */
   } else {
     /* here's where to pick which mode actually gets loaded */
     
@@ -165,6 +168,6 @@ void draw() {
   mode.draw();
   popMatrix();
   if (do_cp5) {
-    controlP5.draw();
+  /*  controlP5.draw(); */
   }
 }
