@@ -1,0 +1,4 @@
+12 fps version
+verse 1: 134-560
+verse 2: 854-1276
+verse 3: 1646-2065

@@ -1,0 +1,11 @@
+change paths in beginning of monkey_label (particularly project_root_path)
+need to install peasy and controlP5 (should I remove these dependencies?)
+install blender plugin
+
+labeling:
+choose a mode in monkey_label:setup
+
+creating animations in blender:
+
+rendering animations made in blender:
+
