@@ -48,7 +48,7 @@ Monkey m; /* current displayed monkey */
 ControlP5 controlP5;
 ControlWindow controlWindow;
 
-monkey_label applet; /* this applet. sometimes needs to be passed into Java APIs */
+EepEepMotion applet; /* this applet. sometimes needs to be passed into Java APIs */
 
 // keeps track of whether corresponding command key is held down
 boolean do_rotate = false;
