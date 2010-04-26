@@ -1,7 +1,7 @@
-
+/*
 class ViewAllMode extends Mode {
   void enterMode() {
-    cam = new PeasyCam(applet /* global applet */, width/2, height/2, 0, 625);
+    cam = new PeasyCam(applet, width/2, height/2, 0, 625);
     cam.setMinimumDistance(1);
     cam.setMaximumDistance(40000); 
   }
@@ -54,3 +54,4 @@ class ViewAllMode extends Mode {
   }
  
 }
+*/
