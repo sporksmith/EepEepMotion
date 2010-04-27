@@ -156,12 +156,9 @@ public class Monkey {
   void draw() {
     this.draw_color(color(0x8b, 0x45, 0x13, 0xff), color(0, 0, 0, 0xff));
   }  
+  
+  String toString() {
+    return String.format("x:%d y:%d sz:%d\n", x, y, size);
+  }
 }
 
-/* should make this a member of Monkey */
-String monkey_to_string(Monkey m)
-{
-//  return "monkey_to_string fixme";
-  return "" + m.x + " " + m.y + " " + m.size;// + "\n";//+ m.rx + " " + m.ry + " " + m.rz 
-//    + " " + m.size;
-}

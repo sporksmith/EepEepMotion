@@ -94,7 +94,7 @@ public class MonkeyPic {
     monkey.y = this.y + (int)(monkey.y / scale_factor);
     monkey.rotate(new PVector(0, 0, 1), -this.rz);
 //    monkey.rz -= this.rz;
-    print(monkey_to_string(monkey) + "\n");
+    print(monkey.toString() + "\n");
   }
   
   // scale image on screen, keeping Mr. Monkey's location consistent
