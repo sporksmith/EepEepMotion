@@ -65,11 +65,6 @@ Monkey m; /* current displayed monkey */
 
 EepEepMotion applet; /* this applet. sometimes needs to be passed into Java APIs */
 
-// keeps track of whether corresponding command key is held down
-boolean do_rotate = false;
-boolean do_turn = false;
-boolean do_zoom = false;
-
 // target frame rate. for rendering this should be cranked up as
 // high enough that we're not idling.
 // FIXME: in some places when rendering directly to a movie, this is also used
@@ -86,30 +81,12 @@ void keyPressed() {
     if (key == 'h') {
       m.hide = !m.hide;
       redraw();
-    } else if (key == 'z') {
-      do_zoom = true;
-    } else if (key == 'r') {
-      do_rotate = true;
-    } else if (key == 't') {
-      do_turn = true;
     }
   }
 }
 
 void keyReleased() {
   mode.keyReleased();
-  
-  // global key bindings
-  if (key == CODED) {
-  } else {
-    if (key == 'r') {
-      do_rotate = false;
-    } else if (key == 'z') {
-      do_zoom = false;
-    } else if (key == 't') {
-      do_turn = false;
-    }
-  }     
 }
 
 void setup() {
@@ -130,19 +107,28 @@ void setup() {
   //mode = (Mode)modes.get(0);
 }
 
+boolean doRotate() {
+  return keyPressed && (key == 'r' || key == 'R');
+}
+boolean doZoom() {
+  return keyPressed && (key == 'z' || key == 'Z');
+}
+boolean doTurn() {
+  return keyPressed && (key == 't' || key == 'T');
+}
 void mouseDragged() {
   int dx = mouseX - pmouseX;
   int dy = mouseY - pmouseY;
   
-  if (do_rotate) {
+  if (doRotate()) {
       m.rotate_y(radians(dx));
       m.rotate_x(radians(-dy));
-  } else if (do_zoom) {
+  } else if (doZoom()) {
     m.size += dx - dy;
     if (m.size < 1) {
       m.size = 1;
     }
-  } else if (do_turn) {
+  } else if (doTurn()) {
     m.rotate_z(radians(dx));
   } else {
     m.x += (int)(dx);
