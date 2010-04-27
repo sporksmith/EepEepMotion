@@ -43,7 +43,7 @@ public class MonkeyPics {
       return;
     }
     */
-    File monkey_index = new File(pic_index_path);
+    File monkey_index = new File(eepEepConfig.getIndexPath());
     this.dir = monkey_index.getParentFile().getPath();
     
     FileInputStream fis = null;

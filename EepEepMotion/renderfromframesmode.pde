@@ -13,7 +13,7 @@ class KeyFrameKeeper {
   }
  
   void put(int frame, String filename) {
-    filename = project_root_path + "pictures/" + filename;
+    filename = eepEepConfig.getPicturesPath() + filename;
     
     //technically should be using a multiset here.
     //clunky workaround...
@@ -86,9 +86,9 @@ class RenderFromFramesMode extends Mode{
       for(int i=0; i<to_append; i++) {
         filename = "0" + filename;
       }
-      out_file = new File(frames_output_path + filename + ".jpg");
-      mask_file = new File(frames_output_path + "m" + filename + ".jpg");
-      imask_file = new File(frames_output_path + "im" + filename + ".jpg");
+      out_file = new File(eepEepConfig.getFramesOutputPath() + filename + ".jpg");
+      mask_file = new File(eepEepConfig.getFramesOutputPath() + "m" + filename + ".jpg");
+      imask_file = new File(eepEepConfig.getFramesOutputPath() + "im" + filename + ".jpg");
       
       if(!out_file.exists()) {
         break;
@@ -199,22 +199,22 @@ class RenderFromFramesMode extends Mode{
     }
 
     // these are too dark and jarring (fireworks)
-    key_frames.disqualify_pic(project_root_path + "pictures/" + "Laconia, New Hampshire/Code Monkey 038edited.jpg", 99999);
-    key_frames.disqualify_pic(project_root_path + "pictures/" + "Laconia, New Hampshire/Code Monkey 036.jpg", 99999);
-    key_frames.disqualify_pic(project_root_path + "pictures/" + "Laconia, New Hampshire/Code Monkey 035.jpg", 99999);
-    key_frames.disqualify_pic(project_root_path + "pictures/" + "Laconia, New Hampshire/Code Monkey 034.jpg", 99999);
+    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "Laconia, New Hampshire/Code Monkey 038edited.jpg", 99999);
+    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "Laconia, New Hampshire/Code Monkey 036.jpg", 99999);
+    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "Laconia, New Hampshire/Code Monkey 035.jpg", 99999);
+    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "Laconia, New Hampshire/Code Monkey 034.jpg", 99999);
     
     // too dark, and repeats
-    key_frames.disqualify_pic(project_root_path + "pictures/" + "JoCoPaSto UK Tour/IMG_5842.JPG", 99999);
-    key_frames.disqualify_pic(project_root_path + "pictures/" + "JoCoPaSto UK Tour/IMG_5846.JPG", 99999);
-    key_frames.disqualify_pic(project_root_path + "pictures/" + "JoCoPaSto UK Tour/IMG_5846-1.JPG", 99999);
-    key_frames.disqualify_pic(project_root_path + "pictures/" + "JoCoPaSto UK Tour/IMG_5848.JPG", 99999);
+    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "JoCoPaSto UK Tour/IMG_5842.JPG", 99999);
+    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "JoCoPaSto UK Tour/IMG_5846.JPG", 99999);
+    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "JoCoPaSto UK Tour/IMG_5846-1.JPG", 99999);
+    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "JoCoPaSto UK Tour/IMG_5848.JPG", 99999);
     
     // hidden / out of frame
-    key_frames.disqualify_pic(project_root_path + "pictures/" + "Pittsburgh/IMG_4285.JPG", 99999);
+    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "Pittsburgh/IMG_4285.JPG", 99999);
     
     // blurry, dupe
-    key_frames.disqualify_pic(project_root_path + "pictures/" + "Laconia, New Hampshire/Code Monkey 046.jpg", 99999);
+    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "Laconia, New Hampshire/Code Monkey 046.jpg", 99999);
 
     // choose movie file to save
     /*
@@ -259,7 +259,7 @@ class RenderFromFramesMode extends Mode{
     } else {
       return;
     } */
-    File framesfile = new File(frames_path);
+    File framesfile = new File(eepEepConfig.getFramesPath());
     
     String lines[] = loadStrings(framesfile);
     for (int i=0; i < lines.length; i++) {

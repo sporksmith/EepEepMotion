@@ -79,7 +79,7 @@ class LabelMode extends Mode {
         mps.load();
       } else if (key == 'f' || key == 'F') {
         if (currentDir == null) {
-          currentDir = new File(project_root_path);
+          currentDir = new File(eepEepConfig.getRootPath());
         }
         
         // this worked before, but now hangs. why?

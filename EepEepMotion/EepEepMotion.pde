@@ -6,15 +6,42 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Properties;
 
 import processing.video.*;
 
-// hard coded path names for convenience
-String project_root_path = "/FIXME/EepEepMotion/Travels"; /* other paths will be relative to this one */
-String pic_index_path = project_root_path + "pictures/index";
-String frames_path = project_root_path + "blender/verses.txt";
-String movie_output_path = project_root_path + "output/movie.mpg";
-String frames_output_path = frames_path + "_frames/";
+class EepEepConfig {
+  private String rootPath, indexPath, framesPath, movieOutputPath, framesOutputPath;
+  private String picturesPath;
+  
+  EepEepConfig() {
+    this.rootPath = System.getProperty("user.home") + "/EepEepMotion/Travels/";
+    
+    this.picturesPath = "pictures/";
+    this.indexPath = "index";
+    
+    this.framesPath = "blender/verses.txt";
+    this.movieOutputPath = "output/movie.mpg";
+    this.framesOutputPath = this.framesPath + "_frames/";
+  }
+  
+  String getRootPath() {
+    return this.rootPath;
+  }
+  String getPicturesPath() {
+    return getRootPath() + this.picturesPath;
+  }
+  String getIndexPath() {
+    return getPicturesPath() + this.indexPath;
+  }
+  String getFramesPath() {
+    return getRootPath() + this.framesPath;
+  }
+  String getFramesOutputPath() {
+    return getRootPath() + this.framesOutputPath;
+  }
+}
+EepEepConfig eepEepConfig = new EepEepConfig();
 
 /* each mode specifies its own setup routine, draw routine, and key bindings. 
  * this allows this code to use the core logic for different applications; e.g., labeling, rendering, animating.
