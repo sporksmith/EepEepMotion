@@ -1,14 +1,3 @@
-
-/*import peasy.org.apache.commons.math.*;
-import peasy.*;
-import peasy.org.apache.commons.math.geometry.*;
-PeasyCam cam;
-*/
-
-//import controlP5.*;
-
-boolean do_cp5 = false; /* enable controlP5 mode switching. currently broken. */
-
 import javax.swing.JFileChooser;
 import java.io.Serializable;
 import java.io.ObjectOutputStream;
@@ -46,10 +35,6 @@ MonkeyPics mps = new MonkeyPics();
 ListIterator i; /* points to next pic in MonkeyPics */
 MonkeyPic mp; /* current displayed mp */
 Monkey m; /* current displayed monkey */
-
-/* vestigial from when I was using P5. should probably be removed */
-//ControlP5 controlP5;
-//ControlWindow controlWindow;
 
 EepEepMotion applet; /* this applet. sometimes needs to be passed into Java APIs */
 
@@ -110,32 +95,13 @@ void setup() {
   /* load the tag index file */
   mps.load();
   
-  if (do_cp5) {
-    /*
-    controlP5 = new ControlP5(this);
-    controlWindow = controlP5.addControlWindow("controlP5window",100,100,100,100);
-    controlWindow.setBackground(color(40));
-  
-    Radio r = controlP5.addRadio("mode_radio", 10, 10);
-    r.setWindow(controlWindow);  
-    modes.add(0, new LabelMode());
-    r.add("label", 0);
-    modes.add(1, new AnimateMode());
-    r.add("animate", 1);
-    //modes.add(2, new ViewAllMode());
-    //r.add("view all", 2);
-    */
-  } else {
-    /* here's where to pick which mode actually gets loaded */
-    
-    //mode = new AnimateMode();
-    mode = new LabelMode();
-    //mode = new ViewAllMode();
-    //mode = new RenderFromFramesMode();
-    //mode = new GravityMode();
-    mode.enterMode();
-  }
-  
+  //mode = new AnimateMode();
+  mode = new LabelMode();
+  //mode = new ViewAllMode();
+  //mode = new RenderFromFramesMode();
+  //mode = new GravityMode();
+  mode.enterMode();
+
   //mode = (Mode)modes.get(0);
 }
 
@@ -169,7 +135,4 @@ void draw() {
   pushMatrix();
   mode.draw();
   popMatrix();
-  if (do_cp5) {
-  /*  controlP5.draw(); */
-  }
 }
