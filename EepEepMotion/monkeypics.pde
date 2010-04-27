@@ -159,12 +159,12 @@ public class MonkeyPics {
       // since usually the rotation will be relatively small.
      int ul_x = max(0, int(-mp.x*mp.scale_factor));
      int ul_y = max(0, int(-mp.y*mp.scale_factor));
-     int lr_x = min(maxx, int((-mp.x + mp.width)*mp.scale_factor));
-     int lr_y = min(maxy, int((-mp.y + mp.height)*mp.scale_factor));
+     int lr_x = min(width, int((-mp.x + mp.width)*mp.scale_factor));
+     int lr_y = min(height, int((-mp.y + mp.height)*mp.scale_factor));
      float width_in_frame = lr_x - ul_x;
      float height_in_frame = lr_y - ul_y;
      
-     frac_frame_used = width_in_frame*height_in_frame / (maxx*maxy);
+     frac_frame_used = width_in_frame*height_in_frame / (width*height);
      frac_in_frame = width_in_frame/mp.scale_factor * height_in_frame/mp.scale_factor / mp.width / mp.height;
       
      Monkey mp_monkey = new Monkey(mp.monkey);

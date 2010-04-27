@@ -226,7 +226,7 @@ class AnimateMode extends Mode {
     int returnVal = chooser.showSaveDialog(null);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
       moviefile = chooser.getSelectedFile();
-      mm = new MovieMaker(applet, maxx, maxy, moviefile.getPath(),
+      mm = new MovieMaker(applet, width, height, moviefile.getPath(),
                   target_rate, MovieMaker.ANIMATION, MovieMaker.BEST);
     }
     

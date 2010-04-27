@@ -41,14 +41,14 @@ class LabelMode extends Mode {
       } else if (key == '+' || key == '=') {
         mp.set_scale(mp.scale_factor*1.5, m.x, m.y);
         m.size *= 1.5;
-        m.x = maxx/2;
-        m.y = maxy/2;
+        m.x = width/2;
+        m.y = height/2;
         redraw();
       } else if (key == '-' || key == '_') {
         mp.set_scale(mp.scale_factor/1.5, m.x, m.y);
         m.size /= 1.5;
-        m.x = maxx/2;
-        m.y = maxy/2;
+        m.x = width/2;
+        m.y = height/2;
         redraw();
       } else if (key == '[' || key == ']') {
         if (mp != null) {
@@ -136,9 +136,9 @@ class UntaggedFilter extends javax.swing.filechooser.FileFilter {
 
 void match_mp_to_screen(MonkeyPic mp) {
   // scale image to max window size
-  float xfactor = maxx / float(mp.width);
-  float yfactor = maxy / float(mp.height); 
-  mp.set_scale(min(xfactor, yfactor), maxx/2, maxy/2);
+  float xfactor = width / float(mp.width);
+  float yfactor = height / float(mp.height); 
+  mp.set_scale(min(xfactor, yfactor), width/2, height/2);
   mp.x = 0;
   mp.y = 0;  
 }

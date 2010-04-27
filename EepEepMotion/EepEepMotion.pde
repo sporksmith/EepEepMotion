@@ -14,6 +14,8 @@ class EepEepConfig {
   private String rootPath, indexPath, framesPath, movieOutputPath, framesOutputPath;
   private String picturesPath;
   
+  private int width, height;
+  
   EepEepConfig() {
     this.rootPath = System.getProperty("user.home") + "/EepEepMotion/Travels/";
     
@@ -23,6 +25,9 @@ class EepEepConfig {
     this.framesPath = "blender/verses.txt";
     this.movieOutputPath = "output/movie.mpg";
     this.framesOutputPath = this.framesPath + "_frames/";
+    
+    this.width = 640;
+    this.height = 480;
   }
   
   String getRootPath() {
@@ -40,6 +45,14 @@ class EepEepConfig {
   String getFramesOutputPath() {
     return getRootPath() + this.framesOutputPath;
   }
+  
+  /* resolution for the screen, AND for output images\video */
+  int getWidth() {
+    return this.width;
+  }
+  int getHeight() {
+    return this.height;
+  }
 }
 EepEepConfig eepEepConfig = new EepEepConfig();
 
@@ -50,9 +63,6 @@ EepEepConfig eepEepConfig = new EepEepConfig();
  */
 ArrayList modes = new ArrayList();
 Mode mode;
-
-/* resolution for the screen, AND for output images\video */
-int maxx = 640, maxy = 480;
 
 /* keep track of current directory so that file dialogs open at the current directory */
 File currentDir = null;
@@ -91,7 +101,7 @@ void keyReleased() {
 
 void setup() {
   applet = this;
-  size(maxx, maxy, P3D);
+  size(eepEepConfig.getWidth(), eepEepConfig.getHeight(), P3D);
   m = new Monkey();
   m.x = width/2;
   m.y = height/2;

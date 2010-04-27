@@ -105,8 +105,8 @@ public class MonkeyPic {
     c_y = y + (int)(c_y / scale_factor);
     
     scale_factor = s;
-    x = c_x - (int)(maxx / scale_factor / 2);
-    y = c_y - (int)(maxy / scale_factor / 2);
+    x = c_x - (int)(width / scale_factor / 2);
+    y = c_y - (int)(height / scale_factor / 2);
   }
   
   void draw() {
