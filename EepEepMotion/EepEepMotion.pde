@@ -97,17 +97,10 @@ void setup() {
   
   //mode = new AnimateMode();
   mode = new LabelMode();
-  //mode = new ViewAllMode();
   //mode = new RenderFromFramesMode();
-  //mode = new GravityMode();
   mode.enterMode();
 
   //mode = (Mode)modes.get(0);
-}
-
-void mode_radio(int id) {
-  print("switching to mode " + id + "\n");
-  mode = (Mode)modes.get(id);
 }
 
 void mouseDragged() {
