@@ -15,6 +15,7 @@ class EepEepConfig {
   private String picturesPath;
   
   private int width, height;
+  private int targetRate;
   
   EepEepConfig() {
     this.rootPath = System.getProperty("user.home") + "/EepEepMotion/Travels/";
@@ -28,6 +29,8 @@ class EepEepConfig {
     
     this.width = 640;
     this.height = 480;
+    
+    this.targetRate = 30;
   }
   
   String getRootPath() {
@@ -53,6 +56,14 @@ class EepEepConfig {
   int getHeight() {
     return this.height;
   }
+  
+  // target frame rate. for rendering this should be cranked up as
+  // high enough that we're not idling.
+  // FIXME: in some places when rendering directly to a movie, this is also used
+  //        as the movie playback framerate. should really be a separate setting.
+  int getTargetRate() {
+    return this.targetRate;
+  }
 }
 EepEepConfig eepEepConfig = new EepEepConfig();
 
@@ -74,12 +85,6 @@ MonkeyPic mp; /* current displayed mp */
 Monkey m; /* current displayed monkey */
 
 EepEepMotion applet; /* this applet. sometimes needs to be passed into Java APIs */
-
-// target frame rate. for rendering this should be cranked up as
-// high enough that we're not idling.
-// FIXME: in some places when rendering directly to a movie, this is also used
-//        as the movie playback framerate. should really be a separate setting.
-int target_rate = 30;
 
 /* global key bindings. modes can add more (and\or override these) */
 void keyPressed() {

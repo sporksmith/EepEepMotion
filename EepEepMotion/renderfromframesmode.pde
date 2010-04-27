@@ -60,7 +60,7 @@ class KeyFrameKeeper {
 
 class RenderFromFramesMode extends Mode{
   int hold_frames = 7; // how long each key frame is frozen
-  KeyFrameKeeper key_frames = new KeyFrameKeeper(hold_frames, (int)(.5*target_rate));
+  KeyFrameKeeper key_frames = new KeyFrameKeeper(hold_frames, (int)(.5*eepEepConfig.getTargetRate()));
   int frame=0;
   int start_frame=-1;
   ArrayList monkey_frames = new ArrayList(); 
@@ -125,8 +125,8 @@ class RenderFromFramesMode extends Mode{
       mps.set_best_match(this.frame); 
       
       // blargh. need to fetch the original mp object in case we're using a flipped copy
-      //mp.disqualify_until_frame = frame + (int)(target_rate*5); 
-      ((MonkeyPic)(mps.mps_hm.get(mp.filename))).disqualify_until_frame = frame + (int)(target_rate*0.5);
+      //mp.disqualify_until_frame = frame + (int)(eepEepConfig.getTargetRate()*5); 
+      ((MonkeyPic)(mps.mps_hm.get(mp.filename))).disqualify_until_frame = frame + (int)(eepEepConfig.getTargetRate()*0.5);
       
       mp.draw();
     }
@@ -230,13 +230,13 @@ class RenderFromFramesMode extends Mode{
     if (returnVal == JFileChooser.APPROVE_OPTION) {
       moviefile = chooser.getSelectedFile();
       mm = new MovieMaker(applet, maxx, maxy, moviefile.getPath(),
-                  target_rate, MovieMaker.ANIMATION, MovieMaker.BEST);
+                  eepEepConfig.getTargetRate(), MovieMaker.ANIMATION, MovieMaker.BEST);
     }
     */
     /*
     File moviefile = new File(movie_output_path);
     mm = new MovieMaker(applet, maxx, maxy, moviefile.getPath(),
-                  target_rate, MovieMaker.ANIMATION, MovieMaker.BEST);
+                  eepEepConfig.getTargetRate(), MovieMaker.ANIMATION, MovieMaker.BEST);
                   */
   }
   void leaveMode() {

@@ -227,7 +227,7 @@ class AnimateMode extends Mode {
     if (returnVal == JFileChooser.APPROVE_OPTION) {
       moviefile = chooser.getSelectedFile();
       mm = new MovieMaker(applet, width, height, moviefile.getPath(),
-                  target_rate, MovieMaker.ANIMATION, MovieMaker.BEST);
+                  eepEepConfig.getTargetRate(), MovieMaker.ANIMATION, MovieMaker.BEST);
     }
     
     LinkedList bucketProcessors = new LinkedList();
