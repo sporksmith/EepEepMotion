@@ -113,7 +113,7 @@ public class MonkeyPic {
     if (img == null) {
       img = loadImage(this.filename);
       if(this.reflected) {
-        hflip(img);
+        Util.hflip(img);
       }
     }
 
@@ -164,8 +164,8 @@ void match_mp_to_m(MonkeyPic mp, Monkey m) {
     mp_monkey_axis = mp.monkey.z_axis;
   }
 
-  float m_axis_angle = angle_of(monkey_axis.x, monkey_axis.y);
-  float mp_axis_angle = angle_of(mp_monkey_axis.x, mp_monkey_axis.y);
+  float m_axis_angle = Util.angle_of(monkey_axis.x, monkey_axis.y);
+  float mp_axis_angle = Util.angle_of(mp_monkey_axis.x, mp_monkey_axis.y);
   mp.rz = m_axis_angle - mp_axis_angle;
   
   mp.x = mp.monkey.x - (int)(m.x/mp.scale_factor);

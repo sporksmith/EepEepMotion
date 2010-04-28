@@ -63,7 +63,7 @@ class ThirdBuckets implements RecursiveBucketProcessor {
     return(xpart);
   }
   LinkedList[] postProcess(LinkedList[] buckets, int parentBucket) {
-    buckets[1] = reversedLinkedList(buckets[1]);
+    buckets[1] = Util.reversedLinkedList(buckets[1]);
     
     for(int i=0; i<buckets.length; i++) {
       int startx, starty;

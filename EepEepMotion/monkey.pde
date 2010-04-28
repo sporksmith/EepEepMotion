@@ -24,11 +24,11 @@ public class Monkey {
   }
   
   void rotate(PVector axis, float a) {
-    x_axis = rotatePointAroundVector(x_axis, axis, a);
+    x_axis = Util.rotatePointAroundVector(x_axis, axis, a);
     x_axis.normalize();
-    y_axis = rotatePointAroundVector(y_axis, axis, a);
+    y_axis = Util.rotatePointAroundVector(y_axis, axis, a);
     y_axis.normalize();
-    z_axis = rotatePointAroundVector(z_axis, axis, a);
+    z_axis = Util.rotatePointAroundVector(z_axis, axis, a);
     z_axis.normalize();
   }
   
