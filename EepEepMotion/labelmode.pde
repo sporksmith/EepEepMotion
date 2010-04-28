@@ -62,7 +62,7 @@ class LabelMode extends Mode {
         } else if (key == ']' && Globals.i.hasNext()) {
           Globals.mp = (MonkeyPic)(Globals.i.next());
         }
-        match_mp_to_m(Globals.mp, Globals.m);
+        Globals.mp.match_to_monkey(Globals.m);
         Globals.mps.match_score(Globals.mp, Globals.m); // just to print scoring
         
         /*
@@ -113,7 +113,7 @@ class LabelMode extends Mode {
       } else if (key == 'm') {
         Globals.i = Globals.mps.sortedListIterator(new MatchComparator());
         Globals.mp = (MonkeyPic)(Globals.i.next());
-        match_mp_to_m(Globals.mp, Globals.m);
+        Globals.mp.match_to_monkey(Globals.m);
         Globals.mps.match_score(Globals.mp, Globals.m); // just to print scoring
         redraw();
       }

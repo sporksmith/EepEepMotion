@@ -136,47 +136,48 @@ public class MonkeyPic {
     image(img, -x, -y);
     popMatrix();
   }
-}
-
-// adjust the picture to line up as closely to Monkey m as 
-// is possible.
-void match_mp_to_m(MonkeyPic mp, Monkey m) {
-  // rotate the picture about Mr. Monkey's location
-  mp.rz_x = m.x;
-  mp.rz_y = m.y;
   
-  mp.scale_factor = (float)m.size / (float)mp.monkey.size;
-  
-  // use rotation abt z to align whichever axis has greatest
-  // magnitude when projected onto the xy plane.
-  // there could be a better way to decide how to rotate picture.
-  PVector monkey_axis, mp_monkey_axis;
-  PVector x_axis_proj, y_axis_proj, z_axis_proj;
-  x_axis_proj = m.x_axis.get();
-  x_axis_proj.z = 0;
-  y_axis_proj = m.y_axis.get();
-  y_axis_proj.z = 0;
-  z_axis_proj = m.z_axis.get();
-  z_axis_proj.z = 0;
-  monkey_axis = m.x_axis;
-  mp_monkey_axis = mp.monkey.x_axis;
-
-  // pick max(x_axis_proj.mag(), y_axis_proj.mag(), z_axis_proj.mag()) 
-  if(x_axis_proj.mag() > y_axis_proj.mag() && x_axis_proj.mag() > z_axis_proj.mag()) {
+  // adjust the picture to line up as closely to Monkey m as 
+  // is possible.
+  void match_to_monkey(Monkey m) {
+    // rotate the picture about Mr. Monkey's location
+    rz_x = m.x;
+    rz_y = m.y;
+    
+    scale_factor = (float)m.size / (float)this.monkey.size;
+    
+    // use rotation abt z to align whichever axis has greatest
+    // magnitude when projected onto the xy plane.
+    // there could be a better way to decide how to rotate picture.
+    PVector monkey_axis, mp_monkey_axis;
+    PVector x_axis_proj, y_axis_proj, z_axis_proj;
+    x_axis_proj = m.x_axis.get();
+    x_axis_proj.z = 0;
+    y_axis_proj = m.y_axis.get();
+    y_axis_proj.z = 0;
+    z_axis_proj = m.z_axis.get();
+    z_axis_proj.z = 0;
     monkey_axis = m.x_axis;
-    mp_monkey_axis = mp.monkey.x_axis;
-  } else if (y_axis_proj.mag() > z_axis_proj.mag()) {
-    monkey_axis = m.y_axis;
-    mp_monkey_axis = mp.monkey.y_axis;
-  } else {
-    monkey_axis = m.z_axis;
-    mp_monkey_axis = mp.monkey.z_axis;
-  }
-
-  float m_axis_angle = Util.angle_of(monkey_axis.x, monkey_axis.y);
-  float mp_axis_angle = Util.angle_of(mp_monkey_axis.x, mp_monkey_axis.y);
-  mp.rz = m_axis_angle - mp_axis_angle;
+    mp_monkey_axis = this.monkey.x_axis;
   
-  mp.x = mp.monkey.x - (int)(m.x/mp.scale_factor);
-  mp.y = mp.monkey.y - (int)(m.y/mp.scale_factor);
+    // pick max(x_axis_proj.mag(), y_axis_proj.mag(), z_axis_proj.mag()) 
+    if(x_axis_proj.mag() > y_axis_proj.mag() && x_axis_proj.mag() > z_axis_proj.mag()) {
+      monkey_axis = m.x_axis;
+      mp_monkey_axis = this.monkey.x_axis;
+    } else if (y_axis_proj.mag() > z_axis_proj.mag()) {
+      monkey_axis = m.y_axis;
+      mp_monkey_axis = this.monkey.y_axis;
+    } else {
+      monkey_axis = m.z_axis;
+      mp_monkey_axis = this.monkey.z_axis;
+    }
+  
+    float m_axis_angle = Util.angle_of(monkey_axis.x, monkey_axis.y);
+    float mp_axis_angle = Util.angle_of(mp_monkey_axis.x, mp_monkey_axis.y);
+    this.rz = m_axis_angle - mp_axis_angle;
+    
+    this.x = this.monkey.x - (int)(m.x/this.scale_factor);
+    this.y = this.monkey.y - (int)(m.y/this.scale_factor);
+  }
 }
+

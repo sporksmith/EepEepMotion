@@ -320,7 +320,7 @@ class AnimateMode extends Mode {
     ortho(-width/2, width/2, -height/2, height/2, -10, 10);
 
     float rz = frames[i].mp.rz;
-    match_mp_to_m(frames[i].mp, frames[i].monkey);
+    frames[i].mp.match_to_monkey(frames[i].monkey);
     frames[i].mp.rz = rz;
     
     frames[i].mp.draw();

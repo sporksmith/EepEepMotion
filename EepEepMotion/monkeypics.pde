@@ -136,7 +136,7 @@ public class MonkeyPics {
       Globals.mp.clear_cache();
     }
     Globals.mp = best_match(Globals.m, frame);
-    match_mp_to_m(Globals.mp, Globals.m);
+    Globals.mp.match_to_monkey(Globals.m);
     match_score(Globals.mp, Globals.m); // just to print scoring
   }
 
@@ -149,7 +149,7 @@ public class MonkeyPics {
   // match_mp_to_m to transform the picture to make it match.
   // lower scores are better matches.
   float match_score(MonkeyPic mp, Monkey m) {
-     match_mp_to_m(mp, m);
+     mp.match_to_monkey(m);
      float score = 0;
      float frac_in_frame = 0;
      float frac_frame_used = 0;
