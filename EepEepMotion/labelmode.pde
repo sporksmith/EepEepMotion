@@ -6,13 +6,13 @@ class LabelMode extends Mode {
   void draw() {
     background(0);
 
-    if(mp != null) {
-      mp.draw();
+    if(Globals.mp != null) {
+      Globals.mp.draw();
     }
     lights();
     ortho(-width/2, width/2, -height/2, height/2, -10, 10);
-    m.move_to();
-    m.draw(); 
+    Globals.m.move_to();
+    Globals.m.draw(); 
   }
   void keyPressed() {
     if (key == CODED) {
@@ -21,65 +21,65 @@ class LabelMode extends Mode {
         int x,y,z;
         int rx, ry, rz;
         float mscale;
-        x=m.x / 2 - 320;
-        y=(-m.y / 2) - 240;
+        x=Globals.m.x / 2 - 320;
+        y=(-Globals.m.y / 2) - 240;
         z=0;
         rx = 0;//- degrees(m.rx);
         ry = 0;//- degrees(-m.ry);
         rz = 0;//- degrees(m.rz);
-        mscale = m.size / 100;
+        mscale = Globals.m.size / 100;
         
-        mps.save(mp);
+        Globals.mps.save(Globals.mp);
         
         // reset
-        mp = null;
-        m = new Monkey();
-        m.x = width/2;
-        m.y = height/2;    
+        Globals.mp = null;
+        Globals.m = new Monkey();
+        Globals.m.x = width/2;
+        Globals.m.y = height/2;    
   
         redraw();
       } else if (key == '+' || key == '=') {
-        mp.set_scale(mp.scale_factor*1.5, m.x, m.y);
-        m.size *= 1.5;
-        m.x = width/2;
-        m.y = height/2;
+        Globals.mp.set_scale(Globals.mp.scale_factor*1.5, Globals.m.x, Globals.m.y);
+        Globals.m.size *= 1.5;
+        Globals.m.x = width/2;
+        Globals.m.y = height/2;
         redraw();
       } else if (key == '-' || key == '_') {
-        mp.set_scale(mp.scale_factor/1.5, m.x, m.y);
-        m.size /= 1.5;
-        m.x = width/2;
-        m.y = height/2;
+        Globals.mp.set_scale(Globals.mp.scale_factor/1.5, Globals.m.x, Globals.m.y);
+        Globals.m.size /= 1.5;
+        Globals.m.x = width/2;
+        Globals.m.y = height/2;
         redraw();
       } else if (key == '[' || key == ']') {
-        if (mp != null) {
-          mp.clear_cache();
+        if (Globals.mp != null) {
+          Globals.mp.clear_cache();
         }
-        if (i == null) {
-          i = mps.listIterator();
+        if (Globals.i == null) {
+          Globals.i = Globals.mps.listIterator();
         }
-        if (key == '[' && i.hasPrevious()) {
-          mp = (MonkeyPic)(i.previous());
-        } else if (key == ']' && i.hasNext()) {
-          mp = (MonkeyPic)(i.next());
+        if (key == '[' && Globals.i.hasPrevious()) {
+          Globals.mp = (MonkeyPic)(Globals.i.previous());
+        } else if (key == ']' && Globals.i.hasNext()) {
+          Globals.mp = (MonkeyPic)(Globals.i.next());
         }
-        match_mp_to_m(mp, m);
-        mps.match_score(mp, m); // just to print scoring
+        match_mp_to_m(Globals.mp, Globals.m);
+        Globals.mps.match_score(Globals.mp, Globals.m); // just to print scoring
         
         /*
-        print ("loading " + mp.filename + "\n");
+        print ("loading " + Globals.mp.filename + "\n");
         match_mp_to_screen(mp);
-        m = new Monkey(mp.monkey);
-        m.x *= mp.scale_factor;
-        m.y *= mp.scale_factor;
-        m.size *= mp.scale_factor; */
+        m = new Monkey(Globals.mp.monkey);
+        Globals.m.x *= Globals.mp.scale_factor;
+        Globals.m.y *= Globals.mp.scale_factor;
+        Globals.m.size *= Globals.mp.scale_factor; */
         redraw();
       } else if (key == 'e') {
-        mps.export();
+        Globals.mps.export();
       } else if (key == 'i') {
-        mps.load();
+        Globals.mps.load();
       } else if (key == 'f' || key == 'F') {
-        if (currentDir == null) {
-          currentDir = new File(eepEepConfig.getRootPath());
+        if (Globals.currentDir == null) {
+          Globals.currentDir = new File(Globals.eepEepConfig.getRootPath());
         }
         
         // this worked before, but now hangs. why?
@@ -105,16 +105,16 @@ class LabelMode extends Mode {
         if (filename != null)
         { 
           File f = new File(filename);
-          mp = new MonkeyPic(f.getAbsolutePath());
-          match_mp_to_screen(mp);          
+          Globals.mp = new MonkeyPic(f.getAbsolutePath());
+          match_mp_to_screen(Globals.mp);          
           // draw
           redraw();
         }
       } else if (key == 'm') {
-        i = mps.sortedListIterator(new MatchComparator());
-        mp = (MonkeyPic)(i.next());
-        match_mp_to_m(mp, m);
-        mps.match_score(mp, m); // just to print scoring
+        Globals.i = Globals.mps.sortedListIterator(new MatchComparator());
+        Globals.mp = (MonkeyPic)(Globals.i.next());
+        match_mp_to_m(Globals.mp, Globals.m);
+        Globals.mps.match_score(Globals.mp, Globals.m); // just to print scoring
         redraw();
       }
     }    
@@ -126,7 +126,7 @@ class LabelMode extends Mode {
 /* can use this in file dialog to only show images that haven't been labeled yet */
 class UntaggedFilter extends javax.swing.filechooser.FileFilter {
     public boolean accept(File f) {
-        return !mps.mps_hm.containsKey(f.getAbsolutePath());
+        return !Globals.mps.mps_hm.containsKey(f.getAbsolutePath());
     }
     
     public String getDescription() {
@@ -136,10 +136,10 @@ class UntaggedFilter extends javax.swing.filechooser.FileFilter {
 
 void match_mp_to_screen(MonkeyPic mp) {
   // scale image to max window size
-  float xfactor = width / float(mp.width);
-  float yfactor = height / float(mp.height); 
-  mp.set_scale(min(xfactor, yfactor), width/2, height/2);
-  mp.x = 0;
-  mp.y = 0;  
+  float xfactor = width / float(Globals.mp.width);
+  float yfactor = height / float(Globals.mp.height); 
+  Globals.mp.set_scale(min(xfactor, yfactor), width/2, height/2);
+  Globals.mp.x = 0;
+  Globals.mp.y = 0;  
 }
 

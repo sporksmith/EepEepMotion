@@ -43,7 +43,7 @@ public class MonkeyPics {
       return;
     }
     */
-    File monkey_index = new File(eepEepConfig.getIndexPath());
+    File monkey_index = new File(Globals.eepEepConfig.getIndexPath());
     this.dir = monkey_index.getParentFile().getPath();
     
     FileInputStream fis = null;
@@ -113,7 +113,7 @@ public class MonkeyPics {
   
   void save(MonkeyPic mp) {
     // save this monkey info
-    mp.add_monkey(m);
+    mp.add_monkey(Globals.m);
     mp.clear_cache(); // unload image to save mem
     mps_hm.put(mp.filename, mp);
     if(this.os != null) {
@@ -132,12 +132,12 @@ public class MonkeyPics {
   }
   
   void set_best_match(int frame) {
-    if (mp != null) {
-      mp.clear_cache();
+    if (Globals.mp != null) {
+      Globals.mp.clear_cache();
     }
-    mp = best_match(m, frame);
-    match_mp_to_m(mp, m);
-    match_score(mp, m); // just to print scoring
+    Globals.mp = best_match(Globals.m, frame);
+    match_mp_to_m(Globals.mp, Globals.m);
+    match_score(Globals.mp, Globals.m); // just to print scoring
   }
 
   void set_best_match() {
@@ -191,9 +191,9 @@ public class MonkeyPics {
      // and aesthetic taste (e.g., what's worse? unused frame or scaling?)
      // XXX consider making weights a configuration parameter instead of hard coded here.
      //     also not clear whether a linear function is really the best approach. just the simplest :)
-     score = rx_diff + ry_diff + rz_diff + 0.1*(1.0 - frac_in_frame) + 1*(1.0 - frac_frame_used) + 0.5*scale_penalty; //+ abs(mp.rz);     
+     score = rx_diff + ry_diff + rz_diff + 0.1*(1.0 - frac_in_frame) + 1*(1.0 - frac_frame_used) + 0.5*scale_penalty; //+ abs(Globals.mp.rz);     
      // alternative weights for small clips focused on monkey
-     //score = rx_diff + ry_diff + rz_diff + 0*(1.0 - frac_in_frame) + 1*(1.0 - frac_frame_used) + 0.2*scale_penalty; //+ abs(mp.rz);
+     //score = rx_diff + ry_diff + rz_diff + 0*(1.0 - frac_in_frame) + 1*(1.0 - frac_frame_used) + 0.2*scale_penalty; //+ abs(Globals.mp.rz);
      
      println(mp.filename);
      println ("scoring:" 
@@ -217,17 +217,17 @@ public class MonkeyPics {
     float low_score = 0;
     Iterator i = this.iterator();
     while(i.hasNext()) {
-      mp = (MonkeyPic)i.next(); // changing the *global* here
-      if (mp.disqualify_until_frame > frame_num) { continue; }
+      Globals.mp = (MonkeyPic)i.next(); // changing the *global* here
+      if (Globals.mp.disqualify_until_frame > frame_num) { continue; }
       
-      float score = match_score(mp, m);
+      float score = match_score(Globals.mp, m);
       
       if (res == null || score < low_score) {
         low_score = score;
-        res = mp;
+        res = Globals.mp;
       } 
       
-      MonkeyPic reflected_mp = new MonkeyPic(mp);
+      MonkeyPic reflected_mp = new MonkeyPic(Globals.mp);
       reflected_mp.reflect();
       score = match_score(reflected_mp, m);
       if (res == null || score < low_score) {
@@ -251,8 +251,8 @@ class MatchComparator implements Comparator {
     MonkeyPic mp1 = (MonkeyPic)o1;
     MonkeyPic mp2 = (MonkeyPic)o2;
     
-    float ms1 = mps.match_score(mp1, m);
-    float ms2 = mps.match_score(mp2, m);
+    float ms1 = Globals.mps.match_score(mp1, Globals.m);
+    float ms2 = Globals.mps.match_score(mp2, Globals.m);
 
     if (ms1 < ms2)
       return -1;

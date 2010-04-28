@@ -216,8 +216,8 @@ class AnimateMode extends Mode {
   void enterMode() {
     // set movie file
     JFileChooser chooser;
-    if (mps.dir != null) {
-      chooser = new JFileChooser(mps.dir);
+    if (Globals.mps.dir != null) {
+      chooser = new JFileChooser(Globals.mps.dir);
     } else {
       chooser = new JFileChooser();
     }
@@ -226,8 +226,8 @@ class AnimateMode extends Mode {
     int returnVal = chooser.showSaveDialog(null);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
       moviefile = chooser.getSelectedFile();
-      mm = new MovieMaker(applet, width, height, moviefile.getPath(),
-                  eepEepConfig.getTargetRate(), MovieMaker.ANIMATION, MovieMaker.BEST);
+      mm = new MovieMaker(Globals.applet, width, height, moviefile.getPath(),
+                  Globals.eepEepConfig.getTargetRate(), MovieMaker.ANIMATION, MovieMaker.BEST);
     }
     
     LinkedList bucketProcessors = new LinkedList();
@@ -238,7 +238,7 @@ class AnimateMode extends Mode {
     bucketProcessors.addLast(new UpDnBuckets());
     
     LinkedList frameList = new LinkedList();
-    for(Iterator i=mps.iterator(); i.hasNext();) {
+    for(Iterator i=Globals.mps.iterator(); i.hasNext();) {
       MonkeyPic mp = (MonkeyPic)i.next();
       Monkey m = new Monkey(mp.monkey);
       

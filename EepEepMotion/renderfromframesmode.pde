@@ -13,7 +13,7 @@ class KeyFrameKeeper {
   }
  
   void put(int frame, String filename) {
-    filename = eepEepConfig.getPicturesPath() + filename;
+    filename = Globals.eepEepConfig.getPicturesPath() + filename;
     
     //technically should be using a multiset here.
     //clunky workaround...
@@ -39,7 +39,7 @@ class KeyFrameKeeper {
   }
   
   void disqualify_pic(String filename, int until_frame) {
-      MonkeyPic mp = (MonkeyPic)mps.mps_hm.get(filename); 
+      MonkeyPic mp = (MonkeyPic)Globals.mps.mps_hm.get(filename); 
       
       if(mp == null) {
         println("cant find file to dq: " + filename);
@@ -60,7 +60,7 @@ class KeyFrameKeeper {
 
 class RenderFromFramesMode extends Mode{
   int hold_frames = 7; // how long each key frame is frozen
-  KeyFrameKeeper key_frames = new KeyFrameKeeper(hold_frames, (int)(.5*eepEepConfig.getTargetRate()));
+  KeyFrameKeeper key_frames = new KeyFrameKeeper(hold_frames, (int)(.5*Globals.eepEepConfig.getTargetRate()));
   int frame=0;
   int start_frame=-1;
   ArrayList monkey_frames = new ArrayList(); 
@@ -80,15 +80,15 @@ class RenderFromFramesMode extends Mode{
       key_frames.do_disqualify(this.frame);
       
       // figure out output filename
-      m = (Monkey)monkey_frames.get(this.frame-this.start_frame);
+      Globals.m = (Monkey)monkey_frames.get(this.frame-this.start_frame);
       String filename = "" + this.frame;
       int to_append = 4-filename.length();
       for(int i=0; i<to_append; i++) {
         filename = "0" + filename;
       }
-      out_file = new File(eepEepConfig.getFramesOutputPath() + filename + ".jpg");
-      mask_file = new File(eepEepConfig.getFramesOutputPath() + "m" + filename + ".jpg");
-      imask_file = new File(eepEepConfig.getFramesOutputPath() + "im" + filename + ".jpg");
+      out_file = new File(Globals.eepEepConfig.getFramesOutputPath() + filename + ".jpg");
+      mask_file = new File(Globals.eepEepConfig.getFramesOutputPath() + "m" + filename + ".jpg");
+      imask_file = new File(Globals.eepEepConfig.getFramesOutputPath() + "im" + filename + ".jpg");
       
       if(!out_file.exists()) {
         break;
@@ -102,8 +102,8 @@ class RenderFromFramesMode extends Mode{
     // create and save mask based on monkey
     pushMatrix();
     background(0xffffffff);
-    m.move_to();
-    m.draw_color(0xff000000, 0xff000000);
+    Globals.m.move_to();
+    Globals.m.draw_color(0xff000000, 0xff000000);
     saveFrame(mask_file.getPath());
     popMatrix();
     
@@ -111,8 +111,8 @@ class RenderFromFramesMode extends Mode{
     // create and save green/white mask based on monkey
     pushMatrix();
     background(0xff00ff00);
-    m.move_to();
-    m.draw_color(0xff000000, 0xff000000);
+    Globals.m.move_to();
+    Globals.m.draw_color(0xff000000, 0xff000000);
     saveFrame(imask_file.getPath());
     popMatrix();
 
@@ -122,20 +122,20 @@ class RenderFromFramesMode extends Mode{
     // get matching monkeypic
     // unless we're in a deadzone (covered by a keyframe)    
     if(!key_frames.in_deadzone(this.frame)) {
-      mps.set_best_match(this.frame); 
+      Globals.mps.set_best_match(this.frame); 
       
       // blargh. need to fetch the original mp object in case we're using a flipped copy
       //mp.disqualify_until_frame = frame + (int)(eepEepConfig.getTargetRate()*5); 
-      ((MonkeyPic)(mps.mps_hm.get(mp.filename))).disqualify_until_frame = frame + (int)(eepEepConfig.getTargetRate()*0.5);
+      ((MonkeyPic)(Globals.mps.mps_hm.get(Globals.mp.filename))).disqualify_until_frame = frame + (int)(Globals.eepEepConfig.getTargetRate()*0.5);
       
-      mp.draw();
+      Globals.mp.draw();
     }
     saveFrame(out_file.getPath());
         
     // draw monkey for debugging
     lights();
-    m.move_to();
-    m.draw();
+    Globals.m.move_to();
+    Globals.m.draw();
     
     
     this.frame++;
@@ -199,22 +199,22 @@ class RenderFromFramesMode extends Mode{
     }
 
     // these are too dark and jarring (fireworks)
-    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "Laconia, New Hampshire/Code Monkey 038edited.jpg", 99999);
-    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "Laconia, New Hampshire/Code Monkey 036.jpg", 99999);
-    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "Laconia, New Hampshire/Code Monkey 035.jpg", 99999);
-    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "Laconia, New Hampshire/Code Monkey 034.jpg", 99999);
+    key_frames.disqualify_pic(Globals.eepEepConfig.getPicturesPath() + "Laconia, New Hampshire/Code Monkey 038edited.jpg", 99999);
+    key_frames.disqualify_pic(Globals.eepEepConfig.getPicturesPath() + "Laconia, New Hampshire/Code Monkey 036.jpg", 99999);
+    key_frames.disqualify_pic(Globals.eepEepConfig.getPicturesPath() + "Laconia, New Hampshire/Code Monkey 035.jpg", 99999);
+    key_frames.disqualify_pic(Globals.eepEepConfig.getPicturesPath() + "Laconia, New Hampshire/Code Monkey 034.jpg", 99999);
     
     // too dark, and repeats
-    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "JoCoPaSto UK Tour/IMG_5842.JPG", 99999);
-    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "JoCoPaSto UK Tour/IMG_5846.JPG", 99999);
-    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "JoCoPaSto UK Tour/IMG_5846-1.JPG", 99999);
-    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "JoCoPaSto UK Tour/IMG_5848.JPG", 99999);
+    key_frames.disqualify_pic(Globals.eepEepConfig.getPicturesPath() + "JoCoPaSto UK Tour/IMG_5842.JPG", 99999);
+    key_frames.disqualify_pic(Globals.eepEepConfig.getPicturesPath() + "JoCoPaSto UK Tour/IMG_5846.JPG", 99999);
+    key_frames.disqualify_pic(Globals.eepEepConfig.getPicturesPath() + "JoCoPaSto UK Tour/IMG_5846-1.JPG", 99999);
+    key_frames.disqualify_pic(Globals.eepEepConfig.getPicturesPath() + "JoCoPaSto UK Tour/IMG_5848.JPG", 99999);
     
     // hidden / out of frame
-    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "Pittsburgh/IMG_4285.JPG", 99999);
+    key_frames.disqualify_pic(Globals.eepEepConfig.getPicturesPath() + "Pittsburgh/IMG_4285.JPG", 99999);
     
     // blurry, dupe
-    key_frames.disqualify_pic(eepEepConfig.getPicturesPath() + "Laconia, New Hampshire/Code Monkey 046.jpg", 99999);
+    key_frames.disqualify_pic(Globals.eepEepConfig.getPicturesPath() + "Laconia, New Hampshire/Code Monkey 046.jpg", 99999);
 
     // choose movie file to save
     /*
@@ -230,13 +230,13 @@ class RenderFromFramesMode extends Mode{
     if (returnVal == JFileChooser.APPROVE_OPTION) {
       moviefile = chooser.getSelectedFile();
       mm = new MovieMaker(applet, maxx, maxy, moviefile.getPath(),
-                  eepEepConfig.getTargetRate(), MovieMaker.ANIMATION, MovieMaker.BEST);
+                  Globals.eepEepConfig.getTargetRate(), MovieMaker.ANIMATION, MovieMaker.BEST);
     }
     */
     /*
     File moviefile = new File(movie_output_path);
     mm = new MovieMaker(applet, maxx, maxy, moviefile.getPath(),
-                  eepEepConfig.getTargetRate(), MovieMaker.ANIMATION, MovieMaker.BEST);
+                  Globals.eepEepConfig.getTargetRate(), MovieMaker.ANIMATION, MovieMaker.BEST);
                   */
   }
   void leaveMode() {
@@ -259,7 +259,7 @@ class RenderFromFramesMode extends Mode{
     } else {
       return;
     } */
-    File framesfile = new File(eepEepConfig.getFramesPath());
+    File framesfile = new File(Globals.eepEepConfig.getFramesPath());
     
     String lines[] = loadStrings(framesfile);
     for (int i=0; i < lines.length; i++) {

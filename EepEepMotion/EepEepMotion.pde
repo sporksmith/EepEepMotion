@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.Properties;
 
 import processing.video.*;
+import java.util.prefs.*;
 
 class EepEepConfig {
   private String rootPath, indexPath, framesPath, movieOutputPath, framesOutputPath;
@@ -65,59 +66,40 @@ class EepEepConfig {
     return this.targetRate;
   }
 }
-EepEepConfig eepEepConfig = new EepEepConfig();
 
-/* each mode specifies its own setup routine, draw routine, and key bindings. 
- * this allows this code to use the core logic for different applications; e.g., labeling, rendering, animating.
- * a cleaner way to do this would be to have a UI to switch modes dynamically. I started to do this with controlP5, but there were some conflicts.
- * another cleaner way to do this would be to separate the core logic into a library and have distinct applications linking to that library.
- */
-ArrayList modes = new ArrayList();
-Mode mode;
-
-/* keep track of current directory so that file dialogs open at the current directory */
-File currentDir = null;
-
-/* these should probably be moved into the mode classes rather than being at the global scope. */
-MonkeyPics mps = new MonkeyPics();
-ListIterator i; /* points to next pic in MonkeyPics */
-MonkeyPic mp; /* current displayed mp */
-Monkey m; /* current displayed monkey */
-
-EepEepMotion applet; /* this applet. sometimes needs to be passed into Java APIs */
 
 /* global key bindings. modes can add more (and\or override these) */
 void keyPressed() {
-  mode.keyPressed();
+  Globals.mode.keyPressed();
 
   // global bindings
   if (key == CODED) {
   } else {
     if (key == 'h') {
-      m.hide = !m.hide;
+      Globals.m.hide = !Globals.m.hide;
       redraw();
     }
   }
 }
 
 void keyReleased() {
-  mode.keyReleased();
+  Globals.mode.keyReleased();
 }
 
 void setup() {
-  applet = this;
-  size(eepEepConfig.getWidth(), eepEepConfig.getHeight(), P3D);
-  m = new Monkey();
-  m.x = width/2;
-  m.y = height/2;
+  Globals.applet = this;
+  size(Globals.eepEepConfig.getWidth(), Globals.eepEepConfig.getHeight(), P3D);
+  Globals.m = new Monkey();
+  Globals.m.x = width/2;
+  Globals.m.y = height/2;
   
   /* load the tag index file */
-  mps.load();
+  Globals.mps.load();
   
   //mode = new AnimateMode();
-  mode = new LabelMode();
+  Globals.mode = new LabelMode();
   //mode = new RenderFromFramesMode();
-  mode.enterMode();
+  Globals.mode.enterMode();
 
   //mode = (Mode)modes.get(0);
 }
@@ -136,24 +118,24 @@ void mouseDragged() {
   int dy = mouseY - pmouseY;
   
   if (doRotate()) {
-      m.rotate_y(radians(dx));
-      m.rotate_x(radians(-dy));
+      Globals.m.rotate_y(radians(dx));
+      Globals.m.rotate_x(radians(-dy));
   } else if (doZoom()) {
-    m.size += dx - dy;
-    if (m.size < 1) {
-      m.size = 1;
+    Globals.m.size += dx - dy;
+    if (Globals.m.size < 1) {
+      Globals.m.size = 1;
     }
   } else if (doTurn()) {
-    m.rotate_z(radians(dx));
+    Globals.m.rotate_z(radians(dx));
   } else {
-    m.x += (int)(dx);
-    m.y += (int)(dy);
+    Globals.m.x += (int)(dx);
+    Globals.m.y += (int)(dy);
   }
   redraw();
 }
 
 void draw() {
   pushMatrix();
-  mode.draw();
+  Globals.mode.draw();
   popMatrix();
 }
