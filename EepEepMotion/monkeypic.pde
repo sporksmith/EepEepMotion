@@ -109,6 +109,15 @@ public class MonkeyPic {
     y = c_y - (int)(height / scale_factor / 2);
   }
   
+  void set_scale_max(int maxwidth, int maxheight) {
+    // scale image to max window size
+    float xfactor = maxwidth / float(this.width);
+    float yfactor = maxheight / float(this.height); 
+    set_scale(min(xfactor, yfactor), maxwidth/2, maxheight/2);
+    x = 0;
+    y = 0;  
+  }
+  
   void draw() {
     if (img == null) {
       img = loadImage(this.filename);

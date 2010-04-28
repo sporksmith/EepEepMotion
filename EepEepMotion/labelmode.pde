@@ -106,7 +106,7 @@ class LabelMode extends Mode {
         { 
           File f = new File(filename);
           Globals.mp = new MonkeyPic(f.getAbsolutePath());
-          match_mp_to_screen(Globals.mp);          
+          Globals.mp.set_scale_max(width, height);          
           // draw
           redraw();
         }
@@ -132,14 +132,5 @@ class UntaggedFilter extends javax.swing.filechooser.FileFilter {
     public String getDescription() {
         return "untagged files";
     }
-}
-
-void match_mp_to_screen(MonkeyPic mp) {
-  // scale image to max window size
-  float xfactor = width / float(Globals.mp.width);
-  float yfactor = height / float(Globals.mp.height); 
-  Globals.mp.set_scale(min(xfactor, yfactor), width/2, height/2);
-  Globals.mp.x = 0;
-  Globals.mp.y = 0;  
 }
 

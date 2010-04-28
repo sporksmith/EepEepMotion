@@ -243,7 +243,7 @@ class AnimateMode extends Mode {
       Monkey m = new Monkey(mp.monkey);
       
       // FIXME scale so nothing is cropped after moving to bucket      
-      match_mp_to_screen(mp);
+      mp.set_scale_max(width, height);
       m.size *= mp.scale_factor;
       m.size++; // significant rounding error due to monkey.size being int. err on side of too big
       
